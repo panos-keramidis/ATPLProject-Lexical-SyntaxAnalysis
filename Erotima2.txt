@@ -1,0 +1,66 @@
+//2. recursive-descent
+
+stmtlist -> stmtlist statement '
+
+stmtlist statement ' -> SEMICOLON stmtlist statement '
+			| statement
+			| ε
+
+statement -> lvalue expr '
+		| expr statement '
+			
+lvalue expr ' -> ASSIGN lvalue expr '
+		| EXIT
+		| ε
+				
+lvalue -> ID
+	| ID LBRACK index RBRACK 
+		
+expr statement ' -> IF expr THEN statement
+		| IF expr THEN statement ELSE statement
+		| WHILE expr DO statement
+		| EXIT
+
+
+//pseudocodes
+
+function statement1(TOKEN_TYPE token): void
+	begin
+		lvalue() := expr;
+	end	
+	
+function statement2(TOKEN_TYPE token): void
+	begin
+		if (expr) then begin
+			statement();
+		end
+	end	
+	
+function statement3(TOKEN_TYPE token): void
+	begin
+		if (expr) then begin
+			statement();
+		end
+		else begin 
+			statement();
+		end
+	end	
+	
+function statement4(TOKEN_TYPE token): void
+	begin
+		while (expr) then begin
+			statement();
+		end
+	end	
+	
+	
+function lvalue1(): int
+	begin
+		return ID;
+	end	
+
+
+function lvalue2(): int 
+	begin
+		return ID[index];
+	end	
